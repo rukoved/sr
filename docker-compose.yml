@@ -1,0 +1,47 @@
+version: "3.8"
+
+services:
+  db:
+    image: mariadb:10.6
+    environment:
+      MYSQL_ROOT_PASSWORD: drupal_root
+      MYSQL_DATABASE: drupal
+      MYSQL_USER: drupal
+      MYSQL_PASSWORD: iYI&2354y6utryu-try
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+
+  drupal:
+    image: drupal:11-apache
+    volumes:
+      - ./web:/var/www/html
+    ports:
+      - "8080:80"
+    environment:
+      DRUPAL_DATABASE_DATABASE: drupal
+      DRUPAL_DATABASE_USERNAME: drupal
+      DRUPAL_DATABASE_PASSWORD: iYI&2354y6utryu-try
+      DRUPAL_DATABASE_HOST: db
+    depends_on:
+      - db
+    restart: unless-stopped
+    user: "${UID:-1000}:${GID:-1000}"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: db
+      MYSQL_USER: drupal
+      MYSQL_PASSWORD: iYI&2354y6utryu-try
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
+    restart: unless-stopped
+
+volumes:
+  db_data:
+

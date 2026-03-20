@@ -1,0 +1,18 @@
+# Логи
+*.log
+
+# Конфиг базы и настроек
+web/sites/default/settings.php
+
+# Папка с медиа и загрузками
+web/sites/default/files
+
+# Локальные настройки
+docker-compose.override.yml
+.env
+
+# Пользовательские конфиги
+web/sites/default/settings.local.php
+web/sites/default/settings.dev.php
+web/sites/default/settings.stage.php
+
